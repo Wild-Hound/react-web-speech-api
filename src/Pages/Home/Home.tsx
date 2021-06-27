@@ -5,11 +5,14 @@ import TextArea from "../../Components/TextArea/TextArea";
 import Select from "../../Components/Select/Select";
 import SpeakBtn from "../../Components/Button/SpeakBtn";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { updateVoices } from "../../Redux/Actions";
 
 const Home: React.FC = () => {
   const synth = speechSynthesis;
 
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const dispatch = useDispatch();
   //
   useEffect(() => {
     getVoices();
@@ -22,13 +25,18 @@ const Home: React.FC = () => {
     setVoices(synth.getVoices());
   };
 
+  useEffect(() => {
+    dispatch(updateVoices(voices));
+  }, [voices]);
+
   return (
     <div className={`${styles.homeCon} bg-dark`}>
       <div className={`${styles.wrapper} container`}>
+        <h1 className={`text-white text-center`}>Web Speech API On React</h1>
         <TextArea />
         <Rate_Pitch />
         <Select voices={voices} />
-        <SpeakBtn />
+        <SpeakBtn synth={synth} />
       </div>
     </div>
   );

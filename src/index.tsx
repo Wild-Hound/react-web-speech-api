@@ -1,14 +1,48 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { createStore, combineReducers } from "redux";
+import {
+  speakText,
+  rate,
+  pitch,
+  selectedVoice,
+  selectedLang,
+  voices,
+} from "./Redux/Reducers";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { Provider } from "react-redux";
+
+export interface reduxState {
+  speakText: "";
+  rate: "";
+  pitch: "";
+  selectedVoice: "";
+  selectedLang: "";
+  voices: SpeechSynthesisVoice[];
+}
+
+const store = createStore(
+  combineReducers({
+    speakText,
+    rate,
+    pitch,
+    selectedVoice,
+    selectedLang,
+    voices,
+  }),
+  composeWithDevTools()
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

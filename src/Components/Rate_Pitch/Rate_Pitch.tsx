@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { reduxState } from "../../index";
+import { updateRate, updatePitch } from "../../Redux/Actions";
 
 const Rate_Pitch = () => {
   const [rate, setRate] = useState(1);
   const [pitch, setPitch] = useState(1);
 
+  const rateval = useSelector((state: reduxState) => state.rate);
+  const pitchVal = useSelector((state: reduxState) => state.pitch);
+  const dispatch = useDispatch();
+
   const chgRate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRate(parseFloat(event.target.value));
-    console.log(rate);
   };
 
   const chgPitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPitch(parseFloat(event.target.value));
     console.log(pitch);
   };
+
+  useEffect(() => {
+    dispatch(updateRate(rate));
+  }, [rate]);
+
+  useEffect(() => {
+    dispatch(updatePitch(pitch));
+  }, [pitch]);
 
   return (
     <div>
@@ -22,7 +36,7 @@ const Rate_Pitch = () => {
           Rate
         </label>
         <div id="rate-value" className="badge badge-primary ml-3">
-          1
+          {rateval}
         </div>
         <input
           type="range"
@@ -41,7 +55,7 @@ const Rate_Pitch = () => {
           Pitch
         </label>
         <div id="pitch-value" className="badge badge-primary ml-3">
-          1
+          {pitchVal}
         </div>
         <input
           type="range"
