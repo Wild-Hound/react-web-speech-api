@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useSelector } from "react-redux";
 import { reduxState } from "../../index";
@@ -15,7 +15,14 @@ const SpeakBtn: React.FC<Props> = ({ synth }) => {
   const pitch = useSelector((state: reduxState) => state.pitch);
   const voices = useSelector((state: reduxState) => state.voices);
 
+  const [funcInterval, setFunInterval] = useState<number>();
+  const [voiceState, setVoiceState] = useState(false);
+
   const speakAct = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    if (synth?.speaking) {
+      return;
+    }
+
     let Textsynth = new SpeechSynthesisUtterance(speakText);
     Textsynth.rate = parseFloat(rate);
     Textsynth.pitch = parseFloat(pitch);
@@ -29,7 +36,28 @@ const SpeakBtn: React.FC<Props> = ({ synth }) => {
       }
     });
     synth?.speak(Textsynth);
+    // triggers setInterval on useEffect using funcInterval
+    setVoiceState(true);
   };
+
+  synth?.addEventListener("onend", () => {
+    // triggers setInterval on useEffect using funcInterval
+    setVoiceState(false);
+  });
+
+  useEffect(() => {
+    // window needs to be declared else Timeout type is returned required number type
+    const voicePatch = window.setInterval(() => {
+      if (voiceState) {
+        synth?.pause();
+        synth?.resume();
+      } else {
+        clearInterval(funcInterval);
+      }
+    }, 5000);
+
+    voiceState && setFunInterval(voicePatch);
+  }, [voiceState]);
 
   return (
     <div>

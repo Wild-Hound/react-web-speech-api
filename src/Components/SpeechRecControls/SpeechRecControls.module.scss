@@ -1,0 +1,42 @@
+.controlWrapper {
+  display: flex;
+  gap: 3.5em;
+  justify-content: center;
+  padding: 1.5em 0;
+  > button {
+    height: 85px;
+    width: 85px;
+    border-radius: 60px;
+    font-size: 1.15em;
+    font-weight: 500;
+    transition: all 0.35s;
+    outline: none;
+  }
+  .pause {
+    color: #f1c40f;
+    background-color: transparent;
+    border: 2px solid #f1c40f;
+    &:hover {
+      background-color: #f1c40f;
+      color: white;
+    }
+  }
+  .resume {
+    color: #2ecc71;
+    background-color: transparent;
+    border: 2px solid #2ecc71;
+    &:hover {
+      background-color: #2ecc71;
+      color: white;
+    }
+  }
+  .cancel {
+    color: #e74c3c;
+    background-color: transparent;
+    border: 2px solid #e74c3c;
+    &:hover {
+      background-color: #e74c3c;
+      color: white;
+    }
+  }
+}

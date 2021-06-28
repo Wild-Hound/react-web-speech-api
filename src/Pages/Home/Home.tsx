@@ -7,6 +7,7 @@ import SpeakBtn from "../../Components/Button/SpeakBtn";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateVoices } from "../../Redux/Actions";
+import SpeechRecControls from "../../Components/SpeechRecControls/SpeechRecControls";
 
 const Home: React.FC = () => {
   const synth = speechSynthesis;
@@ -33,10 +34,15 @@ const Home: React.FC = () => {
     <div className={`${styles.homeCon} bg-dark`}>
       <div className={`${styles.wrapper} container`}>
         <h1 className={`text-white text-center`}>Web Speech API On React</h1>
-        <TextArea />
-        <Rate_Pitch />
-        <Select voices={voices} />
-        <SpeakBtn synth={synth} />
+        <div>
+          <TextArea />
+          <Rate_Pitch />
+          <Select voices={voices} />
+          <SpeakBtn synth={synth} />
+        </div>
+        <div>
+          <SpeechRecControls />
+        </div>
       </div>
     </div>
   );
