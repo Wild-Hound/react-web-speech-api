@@ -43,3 +43,17 @@ export const updateIsPaued = (data) => {
     payload: data,
   };
 };
+
+export const updateTextFromSpeech = (data) => {
+  return {
+    type: "updateTextFromSpeech",
+    payload: data,
+  };
+};
+
+export const updateListening = (data) => {
+  return {
+    type: "updateListening",
+    payload: data,
+  };
+};

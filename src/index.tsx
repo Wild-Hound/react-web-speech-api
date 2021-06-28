@@ -12,6 +12,8 @@ import {
   selectedLang,
   voices,
   isPaused,
+  textFromSpeech,
+  Listening,
 } from "./Redux/Reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
@@ -24,6 +26,8 @@ export interface reduxState {
   selectedLang: "";
   voices: SpeechSynthesisVoice[];
   isPaused: boolean;
+  textFromSpeech: "";
+  Listening: boolean;
 }
 
 const store = createStore(
@@ -35,6 +39,8 @@ const store = createStore(
     selectedLang,
     voices,
     isPaused,
+    textFromSpeech,
+    Listening,
   }),
   composeWithDevTools()
 );

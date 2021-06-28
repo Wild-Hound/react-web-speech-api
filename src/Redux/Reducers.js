@@ -60,3 +60,21 @@ export const isPaused = (state = false, action) => {
       return state;
   }
 };
+
+export const textFromSpeech = (state = "", action) => {
+  switch (action.type) {
+    case "updateTextFromSpeech":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const Listening = (state = true, action) => {
+  switch (action.type) {
+    case "updateListening":
+      return action.payload;
+    default:
+      return state;
+  }
+};
