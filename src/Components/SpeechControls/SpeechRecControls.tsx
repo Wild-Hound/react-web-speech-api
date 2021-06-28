@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./SpeechControls.module.scss";
 import { reduxState } from "../../index";
-import { updateIntervalPointer } from "../../Redux/Actions";
+import { updateIsPaued } from "../../Redux/Actions";
 
 interface Props {
   synth: SpeechSynthesis;
@@ -10,26 +10,17 @@ interface Props {
 
 const SpeechControls: React.FC<Props> = ({ synth }) => {
   const dispatch = useDispatch();
-  const intervalPointer = useSelector(
-    (state: reduxState) => state.intervalPointer
-  );
+  const isPaused = useSelector((state: reduxState) => state.isPaused);
 
   const pauseAct = () => {
     if (synth.speaking) {
-      clearInterval(intervalPointer);
       synth.pause();
+      dispatch(updateIsPaued(true));
     }
   };
 
   const resumeAct = () => {
     synth.resume();
-
-    const voicePatch = window.setInterval(() => {
-      synth?.pause();
-      synth?.resume();
-    }, 5000);
-
-    dispatch(updateIntervalPointer(voicePatch));
   };
 
   const cancelAct = () => {

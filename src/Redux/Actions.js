@@ -37,9 +37,9 @@ export const updateVoices = (data) => {
   };
 };
 
-export const updateIntervalPointer = (data) => {
+export const updateIsPaued = (data) => {
   return {
-    type: "updateIntervalPointer",
+    type: "updateIsPaued",
     payload: data,
   };
 };

@@ -52,9 +52,9 @@ export const voices = (state = [], action) => {
   }
 };
 
-export const intervalPointer = (state = 0, action) => {
+export const isPaused = (state = false, action) => {
   switch (action.type) {
-    case "updateIntervalPointer":
+    case "updateIsPaued":
       return action.payload;
     default:
       return state;
