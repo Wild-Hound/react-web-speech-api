@@ -36,3 +36,10 @@ export const updateVoices = (data) => {
     payload: data,
   };
 };
+
+export const updateIntervalPointer = (data) => {
+  return {
+    type: "updateIntervalPointer",
+    payload: data,
+  };
+};

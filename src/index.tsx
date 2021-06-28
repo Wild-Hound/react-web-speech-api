@@ -11,6 +11,7 @@ import {
   selectedVoice,
   selectedLang,
   voices,
+  intervalPointer,
 } from "./Redux/Reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
@@ -22,6 +23,7 @@ export interface reduxState {
   selectedVoice: "";
   selectedLang: "";
   voices: SpeechSynthesisVoice[];
+  intervalPointer: number;
 }
 
 const store = createStore(
@@ -32,6 +34,7 @@ const store = createStore(
     selectedVoice,
     selectedLang,
     voices,
+    intervalPointer,
   }),
   composeWithDevTools()
 );

@@ -51,3 +51,12 @@ export const voices = (state = [], action) => {
       return state;
   }
 };
+
+export const intervalPointer = (state = 0, action) => {
+  switch (action.type) {
+    case "updateIntervalPointer":
+      return action.payload;
+    default:
+      return state;
+  }
+};

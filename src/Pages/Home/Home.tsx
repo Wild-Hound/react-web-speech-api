@@ -7,7 +7,9 @@ import SpeakBtn from "../../Components/Button/SpeakBtn";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateVoices } from "../../Redux/Actions";
-import SpeechRecControls from "../../Components/SpeechRecControls/SpeechRecControls";
+import SpeechRecControls from "../../Components/SpeechControls/SpeechRecControls";
+import RecognitionBtn from "../../Components/RecognitionBtn/RecognitionBtn";
+import RecResArea from "../../Components/RecResArea/RecResArea";
 
 const Home: React.FC = () => {
   const synth = speechSynthesis;
@@ -38,10 +40,15 @@ const Home: React.FC = () => {
           <TextArea />
           <Rate_Pitch />
           <Select voices={voices} />
+          <SpeechRecControls synth={synth} />
           <SpeakBtn synth={synth} />
         </div>
+        <div className={styles.speechDiveder}>
+          <span>Divider</span>
+        </div>
         <div>
-          <SpeechRecControls />
+          <RecognitionBtn />
+          <RecResArea />
         </div>
       </div>
     </div>

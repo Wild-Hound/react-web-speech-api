@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { reduxState } from "../../index";
+import { updateIntervalPointer } from "../../Redux/Actions";
 
 interface Props {
   synth?: SpeechSynthesis;
 }
 
 const SpeakBtn: React.FC<Props> = ({ synth }) => {
+  const dispatch = useDispatch();
   const speakText = useSelector((state: reduxState) => state.speakText);
   const selectedVoice = useSelector((state: reduxState) => state.selectedVoice);
   const selectedLagn = useSelector((state: reduxState) => state.selectedLang);
   const rate = useSelector((state: reduxState) => state.rate);
   const pitch = useSelector((state: reduxState) => state.pitch);
   const voices = useSelector((state: reduxState) => state.voices);
+  const intervalPointer = useSelector(
+    (state: reduxState) => state.intervalPointer
+  );
 
   const [funcInterval, setFunInterval] = useState<number>();
   const [voiceState, setVoiceState] = useState(false);
@@ -43,6 +48,7 @@ const SpeakBtn: React.FC<Props> = ({ synth }) => {
   synth?.addEventListener("onend", () => {
     // triggers setInterval on useEffect using funcInterval
     setVoiceState(false);
+    dispatch(updateIntervalPointer(0));
   });
 
   useEffect(() => {
@@ -56,8 +62,12 @@ const SpeakBtn: React.FC<Props> = ({ synth }) => {
       }
     }, 5000);
 
-    voiceState && setFunInterval(voicePatch);
+    voiceState && dispatch(updateIntervalPointer(voicePatch));
   }, [voiceState]);
+
+  useEffect(() => {
+    setFunInterval(intervalPointer);
+  }, [intervalPointer]);
 
   return (
     <div>
